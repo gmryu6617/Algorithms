@@ -5,8 +5,8 @@ using namespace std;
 using namespace chrono;
 
 // 2. Bubble Sort
-// Time Complexity: ¥È(n^2)
-// If input array is sorted, 'Time Complexity' is ¥È(n).
+// Time Complexity: theta(n^2)
+// If input array is sorted, 'Time Complexity' is theta(n).
 
 template <typename T>
 void BubbleSort(T* A, size_t n)

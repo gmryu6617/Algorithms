@@ -5,7 +5,7 @@ using namespace std;
 using namespace chrono;
 
 // 1. Selection Sort
-// Time Complexity: ¥È(n^2)
+// Time Complexity: theta(n^2)
 
 template <typename T>
 void SelectionSort(T* A, size_t n)
