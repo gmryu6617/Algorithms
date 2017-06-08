@@ -4,30 +4,31 @@
 using namespace std;
 using namespace chrono;
 
-// 1. Selection Sort
+// 2. Bubble Sort
 // Time Complexity: ¥È(n^2)
+// If input array is sorted, 'Time Complexity' is ¥È(n).
 
 template <typename T>
-void SelectionSort(T* A, size_t n)
+void BubbleSort(T* A, size_t n)
 {
-	T greater;
-	size_t greater_idx;
+	T tmp;
+	bool sorted = true;
 
 	for (size_t i = n - 1; i >= 1; --i) {
-		greater = A[i];
-		greater_idx = i;
-		for (size_t j = 0; j <= i; ++j) {
-			if (A[j] > greater) {
-				greater = A[j];
-				greater_idx = j;
+		sorted = true;
+		for (size_t j = 0; j <= i - 1; ++j) {
+			if (A[j] > A[j + 1]) {
+				tmp = A[j];
+				A[j] = A[j + 1];
+				A[j + 1] = tmp;
+				sorted = false;
 			}
 		}
-		A[greater_idx] = A[i];
-		A[i] = greater;
+		if (sorted == true) return;
 	}
 }
 
-const int ARRAY_SIZE = 100000;
+const size_t ARRAY_SIZE = 100000;
 
 int main()
 {
@@ -35,12 +36,12 @@ int main()
 	for (auto& e : intArray)
 		e = rand() % ARRAY_SIZE;
 
-	cout << "1. Selection Sort" << endl;
+	cout << "2. Bubble Sort" << endl;
 
 	cout << "Start!" << endl;
 	auto start = high_resolution_clock::now();
 
-	SelectionSort(intArray, ARRAY_SIZE);
+	BubbleSort(intArray, ARRAY_SIZE);
 
 	cout << "Finish!" << endl;
 	auto finish = high_resolution_clock::now();
