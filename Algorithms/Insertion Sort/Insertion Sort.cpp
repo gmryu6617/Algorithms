@@ -4,27 +4,24 @@
 using namespace std;
 using namespace chrono;
 
-// 2. Bubble Sort
+// 3. Insertion Sort
 // Time Complexity: theta(n^2)
 // If input array is sorted, 'Time Complexity' is theta(n).
 
 template <typename T>
-void BubbleSort(T* A, size_t n)
+void InsertionSort(T* A, size_t n)
 {
-	T tmp;
-	bool sorted = true;
+	T newItem;
+	size_t loc;
 
-	for (size_t i = n - 1; i >= 1; --i) {
-		sorted = true;
-		for (size_t j = 0; j <= i - 1; ++j) {
-			if (A[j] > A[j + 1]) {
-				tmp = A[j];
-				A[j] = A[j + 1];
-				A[j + 1] = tmp;
-				sorted = false;
-			}
+	for (size_t i = 0; i <= n - 1; ++i) {
+		newItem = A[i];
+		loc = i - 1;
+		while (loc >= 0 && newItem < A[loc]) {
+			A[loc + 1] = A[loc];
+			loc--;
 		}
-		if (sorted == true) return;
+		A[loc + 1] = newItem;
 	}
 }
 
@@ -36,12 +33,12 @@ int main()
 	for (auto& e : intArray)
 		e = rand() % ARRAY_SIZE;
 
-	cout << "2. Bubble Sort" << endl;
+	cout << "3. Insertion Sort" << endl;
 
 	cout << "Start!" << endl;
 	auto start = high_resolution_clock::now();
 
-	BubbleSort(intArray, ARRAY_SIZE);
+	InsertionSort(intArray, ARRAY_SIZE);
 
 	cout << "Finish!" << endl;
 	auto finish = high_resolution_clock::now();

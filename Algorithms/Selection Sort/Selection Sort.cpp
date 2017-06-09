@@ -48,8 +48,8 @@ int main()
 
 	cout << "Elapsed Time: " << duration_cast<milliseconds>(duration).count() << "(ms)" << endl;
 
-//	for (size_t i = 0; i < ARRAY_SIZE; ++i)
-//		cout << intArray[i] << ", ";
+//	for (auto e : intArray)
+//		cout << e << ", ";
 
 	return 0;
 }
