@@ -5,18 +5,18 @@ using namespace std;
 using namespace chrono;
 
 // 1. Selection Sort
-// Time Complexity: theta(n^2)
+// Time Complexity: theta(n ^ 2)
 
 template <typename T>
-void SelectionSort(T* A, size_t n)
+void SelectionSort(T* A, int n)
 {
 	T greater;
-	size_t greater_idx;
+	int greater_idx;
 
-	for (size_t i = n - 1; i >= 1; --i) {
+	for (int i = n - 1; i >= 1; --i) {
 		greater = A[i];
 		greater_idx = i;
-		for (size_t j = 0; j <= i; ++j) {
+		for (int j = 0; j <= i; ++j) {
 			if (A[j] > greater) {
 				greater = A[j];
 				greater_idx = j;
@@ -27,7 +27,7 @@ void SelectionSort(T* A, size_t n)
 	}
 }
 
-const int ARRAY_SIZE = 100000;
+const size_t ARRAY_SIZE = 100000;
 
 int main()
 {

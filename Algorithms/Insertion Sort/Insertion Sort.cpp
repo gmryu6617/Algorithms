@@ -5,16 +5,16 @@ using namespace std;
 using namespace chrono;
 
 // 3. Insertion Sort
-// Time Complexity: theta(n^2)
-// If input array is sorted, 'Time Complexity' is theta(n).
+// Time Complexity: theta(n ^ 2)
+// If the input array is sorted, 'Time Complexity' is theta(n).
 
 template <typename T>
-void InsertionSort(T* A, size_t n)
+void InsertionSort(T* A, int n)
 {
 	T newItem;
-	size_t loc;
+	int loc;
 
-	for (size_t i = 0; i <= n - 1; ++i) {
+	for (int i = 0; i <= n - 1; ++i) {
 		newItem = A[i];
 		loc = i - 1;
 		while (loc >= 0 && newItem < A[loc]) {

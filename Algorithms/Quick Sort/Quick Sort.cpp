@@ -4,48 +4,41 @@
 using namespace std;
 using namespace chrono;
 
-// 4. Merge Sort
-// Time Complexity: theta(n log n)
+// 5. Quick Sort
+// Time Complexity on average: theta(n log n)
+// If the input array is the worst case, 'Time Complexity' is theta (n ^ 2).
 
 template <typename T>
-void MergeSort(T* A, int p, int r)
+void QuickSort(T* A, int p, int r)
 {
-	if (p < r) {
-		int q = (p + r) / 2;
+	int q;
 
-		MergeSort(A, p, q);
-		MergeSort(A, q + 1, r);
-		Merge(A, p, q, r);
+	if (p < r) {
+		q = Partition(A, p, r);
+		QuickSort(A, p, q - 1);
+		QuickSort(A, q + 1, r);
 	}
 }
 
 template <typename T>
-void Merge(T* A, int p, int q, int r)
+int Partition(T* A, int p, int r)
 {
-	T* tmp = new T[r - p + 1];
-	int i = p;
-	int j = q + 1;
-	int t = 0;
+	T tmp;
+	int i = p - 1;
 
-	while (i <= q && j <= r) {
-		if (A[i] <= A[j]) tmp[t++] = A[i++];
-		else tmp[t++] = A[j++];
-	}
-	while(i <= q) {
-		tmp[t++] = A[i++];
-	}
-	while (j <= r) {
-		tmp[t++] = A[j++];
+	for (int j = p; j <= r - 1; ++j) {
+		if (A[j] <= A[r]) {
+			tmp = A[++i];
+			A[i] = A[j];
+			A[j] = tmp;
+		}
 	}
 
-	i = p;
-	t = 0;
+	tmp = A[i + 1];
+	A[i + 1] = A[r];
+	A[r] = tmp;
 
-	while (i <= r) {
-		A[i++] = tmp[t++];
-	}
-
-	delete[] tmp;
+	return i + 1;
 }
 
 const size_t ARRAY_SIZE = 100000;
@@ -56,12 +49,12 @@ int main()
 	for (auto& e : intArray)
 		e = rand() % ARRAY_SIZE;
 
-	cout << "4. Merge Sort" << endl;
+	cout << "5. Quick Sort" << endl;
 
 	cout << "Start!" << endl;
 	auto start = high_resolution_clock::now();
 
-	MergeSort(intArray, 0, ARRAY_SIZE - 1);
+	QuickSort(intArray, 0, ARRAY_SIZE - 1);
 
 	cout << "Finish!" << endl;
 	auto finish = high_resolution_clock::now();

@@ -5,18 +5,18 @@ using namespace std;
 using namespace chrono;
 
 // 2. Bubble Sort
-// Time Complexity: theta(n^2)
-// If input array is sorted, 'Time Complexity' is theta(n).
+// Time Complexity: theta(n ^ 2)
+// If the input array is sorted, 'Time Complexity' is theta(n).
 
 template <typename T>
-void BubbleSort(T* A, size_t n)
+void BubbleSort(T* A, int n)
 {
 	T tmp;
 	bool sorted = true;
 
-	for (size_t i = n - 1; i >= 1; --i) {
+	for (int i = n - 1; i >= 1; --i) {
 		sorted = true;
-		for (size_t j = 0; j <= i - 1; ++j) {
+		for (int j = 0; j <= i - 1; ++j) {
 			if (A[j] > A[j + 1]) {
 				tmp = A[j];
 				A[j] = A[j + 1];
