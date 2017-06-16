@@ -1,5 +1,6 @@
 #include <iostream>
 #include <chrono>
+#include <memory>
 
 using namespace std;
 using namespace chrono;
@@ -31,16 +32,17 @@ const size_t ARRAY_SIZE = 100000;
 
 int main()
 {
-	int intArray[ARRAY_SIZE];
-	for (auto& e : intArray)
-		e = rand() % ARRAY_SIZE;
+	shared_ptr<int> intArray(new int[ARRAY_SIZE], [](int* ptr) { delete[] ptr; });
+
+	for (int i = 0; i <= ARRAY_SIZE - 1; ++i)
+		intArray.get()[i] = rand() % ARRAY_SIZE;
 
 	cout << "1. Selection Sort" << endl;
 
 	cout << "Start!" << endl;
 	auto start = high_resolution_clock::now();
 
-	SelectionSort(intArray, ARRAY_SIZE);
+	SelectionSort(intArray.get(), ARRAY_SIZE);
 
 	cout << "Finish!" << endl;
 	auto finish = high_resolution_clock::now();
@@ -48,8 +50,8 @@ int main()
 
 	cout << "Elapsed Time: " << duration_cast<milliseconds>(duration).count() << "(ms)" << endl;
 
-//	for (auto e : intArray)
-//		cout << e << ", ";
+	for (int i = 0; i <= ARRAY_SIZE - 1; ++i)
+		cout << intArray.get()[i] << ", ";
 
 	return 0;
 }

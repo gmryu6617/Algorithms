@@ -1,48 +1,46 @@
 #include <iostream>
 #include <chrono>
-#include <vector>
 #include <memory>
 
 using namespace std;
 using namespace chrono;
 
-// 7. Radix Sort
+// 8. Counting Sort
 // Time Complexity: theta(n)
 
 template <typename T>
-void RadixSort(T* A, int n, int k)
+void CountingSort(T* A, T* B, int n)
 {
-	vector<T> vec_tmp[10];
+	shared_ptr<T> C(new T[ARRAY_SIZE], [](T* p) { delete[] p; });
 
-	for (int i = 0, mod = 10, div = 1, tmp_idx = 0; i <= k - 1; ++i, mod *= 10, div *= 10, tmp_idx = 0) {
-		for (int j = 0; j <= n - 1; ++j)
-			vec_tmp[A[j] % mod / div].push_back(A[j]);
-
-		for (int m = 0; m <= 9; ++m) {
-			for (auto e : vec_tmp[m]) {
-				A[tmp_idx++] = e;
-			}
-			vec_tmp[m].clear();
-		}
+	for (int i = 0; i <= ARRAY_SIZE - 1; ++i)
+		C.get()[i] = 0;
+	for (int j = 0; j <= n - 1; ++j)
+		C.get()[A[j]]++;
+	for (int i = 1; i <= ARRAY_SIZE - 1; ++i)
+		C.get()[i] = C.get()[i] + C.get()[i - 1];
+	for (int j = n - 1; j >= 0; --j) {
+		B[C.get()[A[j]] - 1] = A[j];
+		C.get()[A[j]]--;
 	}
 }
 
 const size_t ARRAY_SIZE = 100000000;
-const size_t RADIX_SIZE = 9;
 
 int main()
 {
 	shared_ptr<int> intArray(new int[ARRAY_SIZE], [](int* ptr) { delete[] ptr; });
+	shared_ptr<int> destArray(new int[ARRAY_SIZE], [](int* ptr) { delete[] ptr; });
 
 	for (int i = 0; i <= ARRAY_SIZE - 1; ++i)
 		intArray.get()[i] = rand() % ARRAY_SIZE;
 
-	cout << "7. Radix Sort" << endl;
+	cout << "8. Counting Sort" << endl;
 
 	cout << "Start!" << endl;
 	auto start = high_resolution_clock::now();
 
-	RadixSort(intArray.get(), ARRAY_SIZE, RADIX_SIZE);
+	CountingSort(intArray.get(), destArray.get(), ARRAY_SIZE);
 
 	cout << "Finish!" << endl;
 	auto finish = high_resolution_clock::now();
@@ -51,7 +49,7 @@ int main()
 	cout << "Elapsed Time: " << duration_cast<milliseconds>(duration).count() << "(ms)" << endl;
 
 	for (int i = 0; i <= ARRAY_SIZE - 1; ++i)
-		cout << intArray.get()[i] << ", ";
+		cout << destArray.get()[i] << ", ";
 
 	return 0;
 }

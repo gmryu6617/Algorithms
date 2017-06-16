@@ -1,5 +1,6 @@
 #include <iostream>
 #include <chrono>
+#include <memory>
 
 using namespace std;
 using namespace chrono;
@@ -35,40 +36,41 @@ void Heapify(T* A, int k, int n)
 {
 	int left = 2 * k;
 	int right = 2 * k + 1;
-	int smaller;
+	int greater;
 	int tmp;
 
 	if (right <= n) {
-		if (A[left] < A[right]) smaller = left;
-		else smaller = right;
+		if (A[left] > A[right]) greater = left;
+		else greater = right;
 	}
 	else if (left <= n) {
-		smaller = left;
+		greater = left;
 	}
 	else return;
 
-	if (A[smaller] < A[k]) {
-		tmp = A[smaller];
-		A[smaller] = A[k];
+	if (A[greater] > A[k]) {
+		tmp = A[greater];
+		A[greater] = A[k];
 		A[k] = tmp;
-		Heapify(A, smaller, n);
+		Heapify(A, greater, n);
 	}
 }
 
-const size_t ARRAY_SIZE = 100000;
+const size_t ARRAY_SIZE = 10000000;
 
 int main()
 {
-	int intArray[ARRAY_SIZE];
-	for (auto& e : intArray)
-		e = rand() % ARRAY_SIZE;
+	shared_ptr<int> intArray(new int[ARRAY_SIZE], [](int* ptr) { delete[] ptr; });
+
+	for (int i = 0; i <= ARRAY_SIZE - 1; ++i)
+		intArray.get()[i] = rand() % ARRAY_SIZE;
 
 	cout << "6. Heap Sort" << endl;
 
 	cout << "Start!" << endl;
 	auto start = high_resolution_clock::now();
 
-	HeapSort(intArray, ARRAY_SIZE);
+	HeapSort(intArray.get(), ARRAY_SIZE);
 
 	cout << "Finish!" << endl;
 	auto finish = high_resolution_clock::now();
@@ -76,8 +78,8 @@ int main()
 
 	cout << "Elapsed Time: " << duration_cast<milliseconds>(duration).count() << "(ms)" << endl;
 
-//	for (auto e : intArray)
-//		cout << e << ", ";
+	for (int i = 0; i <= ARRAY_SIZE - 1; ++i)
+		cout << intArray.get()[i] << ", ";
 
 	return 0;
 }
