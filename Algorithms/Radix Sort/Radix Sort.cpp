@@ -28,21 +28,21 @@ void RadixSort(T* A, int n, int k)
 }
 
 const size_t ARRAY_SIZE = 100000000;
-const size_t RADIX_SIZE = 9;
+const size_t RADIX_SIZE = 8;
 
 int main()
 {
-	shared_ptr<int> intArray(new int[ARRAY_SIZE], [](int* ptr) { delete[] ptr; });
+	shared_ptr<int> sp_intArray(new int[ARRAY_SIZE], [](int* ptr) { delete[] ptr; });
 
 	for (int i = 0; i <= ARRAY_SIZE - 1; ++i)
-		intArray.get()[i] = rand() % ARRAY_SIZE;
+		sp_intArray.get()[i] = rand() % ARRAY_SIZE;
 
 	cout << "7. Radix Sort" << endl;
 
 	cout << "Start!" << endl;
 	auto start = high_resolution_clock::now();
 
-	RadixSort(intArray.get(), ARRAY_SIZE, RADIX_SIZE);
+	RadixSort(sp_intArray.get(), ARRAY_SIZE, RADIX_SIZE);
 
 	cout << "Finish!" << endl;
 	auto finish = high_resolution_clock::now();
@@ -51,7 +51,7 @@ int main()
 	cout << "Elapsed Time: " << duration_cast<milliseconds>(duration).count() << "(ms)" << endl;
 
 	for (int i = 0; i <= ARRAY_SIZE - 1; ++i)
-		cout << intArray.get()[i] << ", ";
+		cout << sp_intArray.get()[i] << ", ";
 
 	return 0;
 }
