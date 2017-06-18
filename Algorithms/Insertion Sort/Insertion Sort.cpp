@@ -26,14 +26,14 @@ void InsertionSort(T* A, int n)
 	}
 }
 
-const size_t ARRAY_SIZE = 100000;
+const size_t ARRAY_SIZE = 100'000;
 
 int main()
 {
 	shared_ptr<int> sp_intArray(new int[ARRAY_SIZE], [](int* ptr) { delete[] ptr; });
 
 	for (int i = 0; i <= ARRAY_SIZE - 1; ++i)
-		sp_intArray.get()[i] = rand() % ARRAY_SIZE;
+		sp_intArray.get()[i] = rand() % RAND_MAX;
 
 	cout << "3. Insertion Sort" << endl;
 

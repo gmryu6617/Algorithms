@@ -47,14 +47,14 @@ void Merge(T* A, int p, int q, int r)
 	}
 }
 
-const size_t ARRAY_SIZE = 1000000;
+const size_t ARRAY_SIZE = 1'000'000;
 
 int main()
 {
 	shared_ptr<int> sp_intArray(new int[ARRAY_SIZE], [](int* ptr) { delete[] ptr; });
 
 	for (int i = 0; i <= ARRAY_SIZE - 1; ++i)
-		sp_intArray.get()[i] = rand() % ARRAY_SIZE;
+		sp_intArray.get()[i] = rand() % RAND_MAX;
 
 	cout << "4. Merge Sort" << endl;
 

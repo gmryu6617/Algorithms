@@ -27,15 +27,15 @@ void RadixSort(T* A, int n, int k)
 	}
 }
 
-const size_t ARRAY_SIZE = 100000000;
-const size_t RADIX_SIZE = 8;
+const size_t ARRAY_SIZE = 100'000'000;
+const size_t RADIX_SIZE = 5;
 
 int main()
 {
 	shared_ptr<int> sp_intArray(new int[ARRAY_SIZE], [](int* ptr) { delete[] ptr; });
 
 	for (int i = 0; i <= ARRAY_SIZE - 1; ++i)
-		sp_intArray.get()[i] = rand() % ARRAY_SIZE;
+		sp_intArray.get()[i] = rand() % RAND_MAX;
 
 	cout << "7. Radix Sort" << endl;
 
