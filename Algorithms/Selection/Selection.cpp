@@ -53,7 +53,7 @@ int main()
 	cout << "Start!" << endl;
 	auto start = high_resolution_clock::now();
 
-	cout << Selection(sp_intArray.get(), 0, ARRAY_SIZE - 1, 50000000) << endl;
+	cout << Selection(sp_intArray.get(), 0, ARRAY_SIZE - 1, 50'000'000) << endl;
 
 	cout << "Finish!" << endl;
 	auto finish = high_resolution_clock::now();
